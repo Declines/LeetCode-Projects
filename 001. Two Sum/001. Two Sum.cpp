@@ -2,6 +2,44 @@
 //
 
 #include <iostream>
+#include <map>
+#include <vector>
+
+using namespace std;
+
+class Solution {
+public:
+	vector<int> twoSum(vector<int>& nums, int target) {
+		//for (int i = 0; i < nums.size() - 1; i++) {
+		//	for (int j = i + 1; j < nums.size(); j++) {
+		//		if (target - nums.at(i) == nums.at(j)) {
+		//			return{i, j};
+		//		}
+		//	}
+		//}
+		//return {};
+
+		//map<int, int> m_Nums;
+		//for (int i = 0; i < nums.size(); i++)
+		//	m_Nums.insert(map<int, int>::value_type(nums[i], i));
+		//for (int i = 0; i < nums.size(); i++) {
+		//	int temp = target - nums.at(i);
+		//	if ((m_Nums.find(temp) != m_Nums.end()) && (m_Nums.find(temp)->second != i)) {
+		//		return{i, m_Nums.find(target - nums.at(i))->second};
+		//	}
+		//}
+		//return {};
+
+		map<int, int> m_Nums;
+		for (int i = 0; i < nums.size(); i++) {
+			int temp = target - nums[i];
+			if (m_Nums.find(temp) != m_Nums.end())
+				return{m_Nums.find(temp)->second, i};
+			m_Nums.insert(map<int, int>::value_type(m_Nums[nums[i]], i));
+		}
+		return{};
+	}
+};
 
 int main()
 {

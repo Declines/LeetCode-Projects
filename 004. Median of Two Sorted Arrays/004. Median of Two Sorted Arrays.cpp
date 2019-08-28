@@ -29,14 +29,14 @@ public:
 		while (left < right) {
 			const int m1 = left + (right - left) / 2;
 			const int m2 = k - m1;
-			if (nums1[m1] < nums2[m2 - 1])
+			if (nums1[m1] < nums2[m2-1])
 				left = m1 + 1;
 			else
 				right = m1;
 		}
 		const int m1 = left;
 		const int m2 = k - left;
-		const int c1 = max(m1 <= 0 ? INT_MIN : nums1[m1 - 1], m2 <= 0 ? INT_MIN : nums2[m2 - 1]);
+		const int c1 = max(m1 <= 0 ? INT_MIN : nums1[m1 - 1], m2 <= 0 ? INT_MIN : nums2[m2-1]);
 
 		if ((n_size1 + n_size2) % 2 == 1)
 			return c1;
@@ -45,9 +45,17 @@ public:
 		return (c1 + c2) / 2;
 	}
 };
+
+
 int main()
 {
-    std::cout << "Hello World!\n";
+	vector<int> sums1 = {1, 3, 5, 9};
+	vector<int> sums2 = {2, 6};
+
+	Solution solution;
+	int n_ret = solution.findMedianSortedArrays(sums1, sums2);
+	std::cout << n_ret;
+	return 0;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
