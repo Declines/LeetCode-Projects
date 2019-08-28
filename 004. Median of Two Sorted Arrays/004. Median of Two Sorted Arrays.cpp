@@ -47,7 +47,7 @@ public:
 };
 
 
-int main()
+int main(int argc, char* argv[])
 {
 	vector<int> sums1 = {1, 3, 5, 9};
 	vector<int> sums2 = {2, 6};

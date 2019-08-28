@@ -41,9 +41,12 @@ public:
 	}
 };
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!\n";
+	vector<int> nums = {2, 7, 11, 15};
+	int target = 9;
+	Solution solution;
+	vector<int> ret = solution.twoSum(nums, target);
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
