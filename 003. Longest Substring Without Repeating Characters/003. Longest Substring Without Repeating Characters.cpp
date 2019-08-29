@@ -27,7 +27,9 @@ public:
 int main()
 {
 	string test_string = "abcabcbb";
-    std::cout << "Hello World!\n";
+	Solution solution;
+	int ret = solution.lengthOfLongestSubstring(test_string);
+    std::cout << ret;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
