@@ -22,6 +22,7 @@ public:
 			test_str += "#";
 			test_str += s[i];
 		}
+		test_str += "#";
 
 		int test_str_len = test_str.length();
 		int MaxRight = 0;				            // 当前访问到的所有回文子串，所能触及的最右一个字符的位置
@@ -38,9 +39,10 @@ public:
                 RL[i] = 1;
             }
 
-            while (i - RL[i] >= 0 
-                   && i + RL[i] < test_str_len 
-                   && test_str[i - RL[i]] == test_str[i + RL[i]]
+			// 尝试扩展RL[i]，注意处理边界
+            while (i - RL[i] >= 0                                             // 可以把RL[i]理解为左半径,即回文串的起始位不能小于0
+                   && i + RL[i] < test_str_len                                // 同上,即回文串的结束位不能大于总长
+                   && test_str[i - RL[i]] == test_str[i + RL[i]]              // 回文串特性，左右扩展，判断字符串是否相同
                    ) {
                 RL[i] += 1;
             }
