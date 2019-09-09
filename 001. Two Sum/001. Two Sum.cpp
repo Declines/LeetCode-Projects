@@ -1,52 +1,116 @@
 ﻿// 001. Two Sum.cpp : 此文件包含 "main" 函数。程序执行将在此处开始并结束。
 //
 
-#include <iostream>
-#include <map>
 #include <vector>
+#include <map>
+#include <string>
+#include <algorithm>
+#include <sstream>
+#include <iostream>
 
 using namespace std;
 
 class Solution {
 public:
+	// 1.两数之和
 	vector<int> twoSum(vector<int>& nums, int target) {
-		//for (int i = 0; i < nums.size() - 1; i++) {
-		//	for (int j = i + 1; j < nums.size(); j++) {
-		//		if (target - nums.at(i) == nums.at(j)) {
-		//			return{i, j};
-		//		}
-		//	}
-		//}
-		//return {};
 
-		//map<int, int> m_Nums;
-		//for (int i = 0; i < nums.size(); i++)
-		//	m_Nums.insert(map<int, int>::value_type(nums[i], i));
-		//for (int i = 0; i < nums.size(); i++) {
-		//	int temp = target - nums.at(i);
-		//	if ((m_Nums.find(temp) != m_Nums.end()) && (m_Nums.find(temp)->second != i)) {
-		//		return{i, m_Nums.find(target - nums.at(i))->second};
-		//	}
-		//}
-		//return {};
+// 		//暴力法，直接遍历
+// 		for (int i = 0; i < nums.size() - 1; i++) {
+// 			for (int j = i + 1; j < nums.size(); j++) {
+// 				if (target - nums.at(i) == nums.at(j)) {
+// 					return{ i, j };
+// 				}
+// 			}
+// 		}
+// 		return {};
+// 
+// 		//两遍哈希
+// 		map<int, int> m_Nums;
+// 		for (int i = 0; i < nums.size(); i++)
+// 			m_Nums.insert(map<int, int>::value_type(nums[i], i));
+// 		for (int i = 0; i < nums.size(); i++) {
+// 			int temp = target - nums.at(i);
+// 			if ((m_Nums.find(temp) != m_Nums.end()) && (m_Nums.find(temp)->second != i)) {
+// 				return{ i, m_Nums.find(target - nums.at(i))->second };
+// 			}
+// 		}
+// 		return {};
 
+
+		//一遍哈希
 		map<int, int> m_Nums;
 		for (int i = 0; i < nums.size(); i++) {
 			int temp = target - nums[i];
 			if (m_Nums.find(temp) != m_Nums.end())
-				return{m_Nums.find(temp)->second, i};
+				return{ m_Nums.find(temp)->second, i };
 			m_Nums.insert(map<int, int>::value_type(m_Nums[nums[i]], i));
 		}
 		return{};
 	}
 };
 
-int main(int argc, char* argv[])
-{
-	vector<int> nums = {2, 7, 11, 15};
-	int target = 9;
-	Solution solution;
-	vector<int> ret = solution.twoSum(nums, target);
+void trimLeftTrailingSpaces(string &input) {
+	input.erase(input.begin(), find_if(input.begin(), input.end(), [](int ch) {
+		return !isspace(ch);
+	}));
+}
+
+void trimRightTrailingSpaces(string &input) {
+	input.erase(find_if(input.rbegin(), input.rend(), [](int ch) {
+		return !isspace(ch);
+	}).base(), input.end());
+}
+
+vector<int> stringToIntegerVector(string input) {
+	vector<int> output;
+	trimLeftTrailingSpaces(input);
+	trimRightTrailingSpaces(input);
+	input = input.substr(1, input.length() - 2);
+	stringstream ss;
+	ss.str(input);
+	string item;
+	char delim = ',';
+	while (getline(ss, item, delim)) {
+		output.push_back(stoi(item));
+	}
+	return output;
+}
+
+int stringToInteger(string input) {
+	return stoi(input);
+}
+
+string integerVectorToString(vector<int> list, int length = -1) {
+	if (length == -1) {
+		length = list.size();
+	}
+
+	if (length == 0) {
+		return "[]";
+	}
+
+	string result;
+	for (int index = 0; index < length; index++) {
+		int number = list[index];
+		result += to_string(number) + ", ";
+	}
+	return "[" + result.substr(0, result.length() - 2) + "]";
+}
+
+int main (int argc, char* argv[]) {
+	string line;
+	while (getline(cin, line)) {
+		vector<int> nums = stringToIntegerVector(line);
+		getline(cin, line);
+		int target = stringToInteger(line);
+
+		vector<int> ret = Solution().twoSum(nums, target);
+
+		string out = integerVectorToString(ret);
+		cout << out << endl;
+	}
+	return 0;
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
